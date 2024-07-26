@@ -527,3 +527,21 @@ if __name__ == '__main__':
     if len(sys.argv) == 3:
        report_header = displayReportHeader()
     unittest.main()
+def sum_times(t1, t2):
+    """Add two time objects and return the sum."""
+    sum = Time(0,0,0)
+    sum.hour = t1.hour + t2.hour
+    sum.minute = t1.minute + t2.minute
+    sum.second = t1.second + t2.second
+    
+    # Check for seconds overflow and carry over to minutes
+    if sum.second >= 60:
+        sum.minute += sum.second // 60
+        sum.second = sum.second % 60
+
+    # Check for minutes overflow and carry over to hours
+    if sum.minute >= 60:
+        sum.hour += sum.minute // 60
+        sum.minute = sum.minute % 60
+
+    return sum
