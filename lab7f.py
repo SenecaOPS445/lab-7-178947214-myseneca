@@ -11,9 +11,25 @@ class Time:
         self.minute = minute
         self.second = second
 
+    def __str__(self):
+        """Return a user-friendly string representation of the Time object."""
+        return f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
+
+    def __repr__(self):
+        """Return a detailed string representation of the Time object."""
+        return f'{self.hour:02d}.{self.minute:02d}.{self.second:02d}'
+
+    def __add__(self, other):
+        """Add two Time objects and return a new Time object."""
+        if not isinstance(other, Time):
+            return NotImplemented
+        
+        total_seconds = self.time_to_sec() + other.time_to_sec()
+        return sec_to_time(total_seconds)
+
     def format_time(self):
         """Return time object as a formatted string"""
-        return f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
+        return self.__str__()
 
     def sum_times(self, other):
         """Add this time object with another time object and return the sum."""
@@ -58,4 +74,3 @@ def sec_to_time(seconds):
     minutes = (seconds // 60) % 60
     seconds %= 60
     return Time(hours, minutes, seconds)
-
